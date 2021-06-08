@@ -80,4 +80,4 @@ int main() {
 
 ## References
 
-Scherz and Monk (2013). "Practical Electronics for Inventors" 3rd Ed., McGraw-Hill, 2013. (Sections 14.5 to 14.9 in that book are a very useful introduction to stepper motors.)
+Scherz and Monk (2013). "Practical Electronics for Inventors" 3rd Ed., McGraw-Hill, 2013. (Sections 14.5 to 14.9 are a very useful introduction to stepper motors.)
