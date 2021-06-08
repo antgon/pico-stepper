@@ -1,6 +1,6 @@
 /* Stepper basic example.
  *
- * Connect a 4-wire stepper motor a motor driver, then this to the
+ * Connect a 4-wire stepper motor to a motor driver, then this to the
  * Pico. The motor will variously rotate and pause as noted below.
  * 
  * 
