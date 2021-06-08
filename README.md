@@ -6,7 +6,7 @@ Works with 4-wire bipolar or unipolar stepper motors. Two stepping modes have so
 
 ## Wiring
 
-Driving a stepper motor with the Pico (or pretty much any other microcontroller) requires a driver circuit, typically one H-bridge for each coil pair. There are many dual H-bridge motor driver breakout boards readily available (e.g. [Adafruit #2448](https://www.adafruit.com/product/2448)) and using one of these is an easy way to control a stepper motor with Pico.
+Driving a stepper motor with the Pico (or pretty much any other microcontroller) requires a driver circuit, typically one H-bridge for each coil pair. There are many dual H-bridge motor driver breakout boards readily available (e.g. [Adafruit #2448](https://www.adafruit.com/product/2448)) and using one of these is an easy way to connect a stepper motor to a Pico.
 
 Connect the stepper motor to the dual H-bridges board as per the board's instructions. Then connect the motor board to the Pico so that four of the Pico's GPIOs are used to control motor rotation.
 
