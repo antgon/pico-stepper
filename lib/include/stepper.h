@@ -39,12 +39,21 @@ typedef enum {
  *  \param stepping_mode Firing sequence mode, single or power
  * 
  *  `pin_*` is each of four GPIOs used to control each coil pair in 
- *   the motor.
+ *  the motor.
  * 
  *  `stepping_mode` selects the firing sequence for these four GPIOs.
  *  4-wire unipolar and bipolar motors can be stepped in "single" or
  *  "power" stepping. Power stepping provides more torque but uses
- *   more power.
+ *  more power. The stepping sequences are (after Scherz and Monk 2013,
+ *  Fig 14.8):
+ * 
+ *  Single stepping      Power stepping
+ *       Coil                 Coil
+ *  Step 1A 1B 2A 2B     Step 1A 1B 2A 2B
+ *     0  1  0  0  0        0  1  0  1  0
+ *     1  0  0  1  0        1  0  1  1  0
+ *     2  0  1  0  0        2  0  1  0  1
+ *     3  0  0  0  1        3  1  0  0  1
  */
 void stepper_init(stepper_t *s, uint8_t pin_1A, uint8_t pin_1B,
                   uint8_t pin_2A, uint8_t pin_2B,
