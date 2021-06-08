@@ -8,14 +8,30 @@ Works with 4-wire bipolar or unipolar stepper motors. Two stepping modes have so
 
 Driving a stepper motor with the Pico (or pretty much any other microcontroller) requires a driver circuit, typically one H-bridge for each coil pair. There are many dual H-bridge motor driver breakout boards readily available (e.g. [Adafruit #2448](https://www.adafruit.com/product/2448)) and using one of these is an easy way to control a stepper motor with Pico.
 
-Connect the stepper motor to the dual H-bridges board as per the board's instructions (usually this requires adding an external power source for the motor). Then connect the motor board to the Pico so that four of the Pico's GPIOs are used to control motor rotation.
+Connect the stepper motor to the dual H-bridges board as per the board's instructions. Then connect the motor board to the Pico so that four of the Pico's GPIOs are used to control motor rotation.
 
 ## Software
 
-1. Download the stepper library.
+1. Download **pico-stepper** library.
 
-2. Create a Pico project and use the stepper library as in e.g.
-(see the examples directory for the full working code):
+2. Create a Pico project. Edit `CMakeLists.txt` in your project to include the path to the **pico-stepper** library. E.g. if the **pico-stepper** library is located one directory above (`../`) your project then your `CMakeLists.txt` file should include these lines:
+```cmake
+.
+.
+.
+include(pico_sdk_import.cmake)
+add_subdirectory(../pico-stepper/lib stepper)
+
+target_link_libraries(<name-of-your-project>
+        pico_stdlib
+        pico-stepper
+)
+.
+.
+.
+```
+
+3. Use the stepper library in your project, e.g. (see the examples directory for full working code):
 ```c
 .
 .
@@ -35,7 +51,7 @@ int main() {
     stepper_init(&stepper, stepper_pin_1A, stepper_pin_1B,
                  stepper_pin_2A, stepper_pin_2B,
                  stepper_steps_per_revolution, stepping_mode);
-    stepper_set_speed_rpm(&stepper, 20);  // NOTE[4]
+    stepper_set_speed_rpm(&stepper, 20);  // NOTE [4]
 
     while (true) {
         stepper_rotate_steps(&stepper, 200);  // NOTE [5]
@@ -45,23 +61,6 @@ int main() {
     }
     return 0;
 }
-```
-
-3. Edit `CMakeLists.txt` in your project to include the path to the **pico-stepper** library: add **pico-stepper** to the list of target libraries. E.g. if the **pico-stepper** library is located one directory above (`../`) your project then your `CMakeLists.txt` file should include these lines:
-```cmake
-.
-.
-.
-include(pico_sdk_import.cmake)
-add_subdirectory(../pico-stepper/lib stepper)
-
-target_link_libraries(<name-of-your-project>
-        pico_stdlib
-        pico-stepper
-)
-.
-.
-.
 ```
 
 4. Compile your project and run.
