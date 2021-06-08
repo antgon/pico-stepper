@@ -14,8 +14,6 @@
 
 typedef struct {
     int16_t position;
-    uint64_t now;
-    uint64_t last_step_us_time;
     uint64_t step_delay_us;
     uint32_t gpio_mask;
     uint32_t stepping_sequence[4];
@@ -79,7 +77,7 @@ void stepper_step_once(stepper_t *s, int8_t direction);
 
 /*! \brief De-activate all coils
  *
- *  \param s Pointer to a stepper_t structure 
+ *  \param s Pointer to a stepper_t structure
  */
 void stepper_release(stepper_t *s);
 

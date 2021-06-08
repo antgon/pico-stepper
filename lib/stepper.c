@@ -68,7 +68,6 @@ void stepper_release(stepper_t *s) {
 
 void stepper_rotate_steps(stepper_t *s, int16_t steps) {
     int8_t direction;
-
     if (steps > 0) {
         direction = 1;
     } else {
