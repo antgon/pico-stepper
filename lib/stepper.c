@@ -49,7 +49,7 @@ void stepper_init(stepper_t *s, uint8_t pin_1A, uint8_t pin_1B,
 
 void stepper_set_speed_rpm(stepper_t *s, uint8_t rpm){
     // Delay (in us) between steps
-    s->step_delay = 60L * 1000L * 1000L / s->steps_per_revolution / rpm;
+    s->step_delay_us = 6e7 / s->steps_per_revolution / rpm;
 }
 
 void stepper_step_once(stepper_t *s, int8_t direction) {
@@ -68,26 +68,22 @@ void stepper_release(stepper_t *s) {
 
 void stepper_rotate_steps(stepper_t *s, int16_t steps) {
     int8_t direction;
-    uint16_t steps_remaining = abs(steps);
 
     if (steps > 0) {
         direction = 1;
     } else {
         direction = -1;
     }
-
-    while (steps_remaining > 0) {
-        s->now = to_us_since_boot(get_absolute_time());
-
-        if (s->now - s->last_step_us_time >= s->step_delay) {
-            s->last_step_us_time = s->now;
-            stepper_step_once(s, direction);
-            steps_remaining--;
-        }
+    
+    while (true) {
+        stepper_step_once(s, direction);
+        steps -= direction;
+        if (steps == 0) break;
+        busy_wait_us(s->step_delay_us);
     }
 }
 
 void stepper_rotate_degrees(stepper_t *s, float degrees) {
-    int16_t steps = round(degrees / s->step_angle);
+    int16_t steps = degrees / s->step_angle;
     stepper_rotate_steps(s, steps);
 }

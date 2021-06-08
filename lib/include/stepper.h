@@ -8,17 +8,17 @@
 #ifndef _STEPPER_H_
 #define _STEPPER_H_
 
-#include <math.h>
 #include "pico/stdlib.h"
+#include "hardware/gpio.h"
+#include "hardware/timer.h"
 
 typedef struct {
     int16_t position;
     uint64_t now;
     uint64_t last_step_us_time;
-    uint64_t step_delay;
+    uint64_t step_delay_us;
     uint32_t gpio_mask;
     uint32_t stepping_sequence[4];
-    uint8_t speed_rpm;
     float step_angle;
     uint16_t steps_per_revolution;
 } stepper_t;
