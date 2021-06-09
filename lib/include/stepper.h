@@ -26,6 +26,10 @@ typedef enum {
     power
 } stepper_mode_t;
 
+typedef enum {
+    forward = 1,
+    backward = -1
+} stepper_direction_t;
 
 /*! \brief Initialise a stepper motor
  *
@@ -70,9 +74,9 @@ void stepper_set_speed_rpm(stepper_t *s, uint8_t rpm);
 /*! \brief Rotate the motor one step
  *
  *  \param s Pointer to a stepper_t structure
- *  \param direction Which direction to step, 1 or -1
+ *  \param direction Which direction to step, forward or backward
  */
-void stepper_step_once(stepper_t *s, int8_t direction);
+void stepper_step_once(stepper_t *s, stepper_direction_t direction);
 
 
 /*! \brief De-activate all coils

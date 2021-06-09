@@ -52,7 +52,7 @@ void stepper_set_speed_rpm(stepper_t *s, uint8_t rpm){
     s->step_delay_us = 6e7 / s->steps_per_revolution / rpm;
 }
 
-void stepper_step_once(stepper_t *s, int8_t direction) {
+void stepper_step_once(stepper_t *s, stepper_direction_t direction) {
     s->position += direction;
     if (s->position == s->steps_per_revolution) {
         s->position = 0;
@@ -67,11 +67,11 @@ void stepper_release(stepper_t *s) {
 }
 
 void stepper_rotate_steps(stepper_t *s, int16_t steps) {
-    int8_t direction;
+    stepper_direction_t direction;
     if (steps > 0) {
-        direction = 1;
+        direction = forward;
     } else {
-        direction = -1;
+        direction = backward;
     }
     
     while (true) {
